@@ -62,4 +62,5 @@ class GameSerializer(ModelSerializer):
     default_edition = EditionSerializer(read_only=True)
     class Meta:
         model = Game
-        fields = ["id", "name", "release_date", "genres", "editor", "developer", "editions", "default_edition"]
+        fields = ["id", "name", "release_date", "description", "genres", "editor", "developer", "editions",
+                  "default_edition"]
