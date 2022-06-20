@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, StringRelatedField
 from django.contrib.auth.models import User
 from .models import *
 
@@ -9,13 +9,18 @@ class UserSerializer(ModelSerializer):
         fields = ["username", "email"]
 
 
-class GameSerializer(ModelSerializer):
-    class Meta:
-        model = Game
-        exclude = []
-
-
 class EditionSerializer(ModelSerializer):
     class Meta:
         model = Edition
         exclude = []
+
+
+class GameSerializer(ModelSerializer):
+    editions = EditionSerializer(many=True, read_only=True)
+    genres = StringRelatedField(many=True)
+    editor = StringRelatedField()
+    developer = StringRelatedField()
+
+    class Meta:
+        model = Game
+        fields = ["name", "release_date", "genres", "editor", "developer", "editions"]

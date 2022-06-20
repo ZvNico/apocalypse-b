@@ -31,8 +31,11 @@ class Editor(Choices):
 
 
 class Game(models.Model):
+    name = models.CharField(max_length=255, verbose_name="nom")
+    release_date = models.DateField()
     genres = models.ManyToManyField(Genre, verbose_name="genres")
     editor = models.ForeignKey(Editor, on_delete=models.CASCADE, verbose_name="editeur")
+    developer = models.ForeignKey(Developer, on_delete=models.CASCADE, verbose_name="développeur")
 
 
 class Edition(models.Model):
@@ -40,9 +43,11 @@ class Edition(models.Model):
     isDLC = models.BooleanField(verbose_name="est un dlc")
     price = models.FloatField(verbose_name="prix réduit(vrai prix)")
     initial_price = models.FloatField(verbose_name="prix initial")
-    game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name="jeu")
+    game = models.ForeignKey(Game, on_delete=models.CASCADE, verbose_name="jeu", related_name="editions")
     platform = models.ForeignKey(Platform, on_delete=models.CASCADE, verbose_name="plateforme")
 
+    def __str__(self):
+        return f"{self.name} -"
 
 class Key(models.Model):
     code = models.CharField(max_length=255, verbose_name="code")
