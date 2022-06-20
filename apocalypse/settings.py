@@ -141,3 +141,15 @@ GRAPH_MODELS = {
     'all_applications': True,
     'group_models': True,
 }
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
+
+# auth
+AUTH_USER_MODEL = 'api.User'
