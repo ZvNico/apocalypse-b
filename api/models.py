@@ -106,15 +106,15 @@ class Edition(models.Model):
     support = models.ForeignKey(Support, on_delete=models.CASCADE, verbose_name="support")
 
     def __str__(self):
-        return f"{self.game} - {self.name}"
+        return f"{self.game} - {self.name} - {self.support}"
 
 
 class Key(models.Model):
     code = models.CharField(max_length=255, verbose_name="code")
-    edition = models.ForeignKey(Edition, on_delete=models.CASCADE, verbose_name="édition")
+    edition = models.ForeignKey(Edition, on_delete=models.CASCADE, verbose_name="édition", related_name="keys")
 
     def __str__(self):
-        return f"${self.edition} - {self.code}"
+        return f"{self.edition} - {self.code}"
 
 
 class DiscountCode(models.Model):

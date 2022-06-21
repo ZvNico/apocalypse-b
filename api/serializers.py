@@ -48,10 +48,20 @@ class RegisterSerializer(UserSerializer):
         return user
 
 
+class KeySerializer(ModelSerializer):
+    class Meta:
+        model = Key
+        fields = ["id"]
+
+
 class EditionSerializer(ModelSerializer):
+    keys = KeySerializer(many=True, read_only=True)
+    support = StringRelatedField()
+    platform = StringRelatedField()
+
     class Meta:
         model = Edition
-        exclude = []
+        fields = ["name", "isDLC", "price", "initial_price", "cover", "content", "platform", "support", "keys"]
 
 
 class GameSerializer(ModelSerializer):
